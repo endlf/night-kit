@@ -1,0 +1,77 @@
+.dark-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.dark-screen__image {
+  position: absolute;
+  inset: 0;
+  background: url('/images/start.png') center center / cover no-repeat;
+  background-color: #050a12;
+}
+
+.dark-screen__overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.dark-screen__subtitle {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255, 220, 180, 0.45);
+  letter-spacing: 4px;
+}
+
+@media (min-width: 768px) {
+  .dark-screen__subtitle {
+    font-size: 15px;
+    letter-spacing: 5px;
+  }
+}
+
+.dark-screen__button {
+  background: rgba(255, 220, 180, 0.06);
+  border: 1px solid rgba(255, 220, 180, 0.25);
+  color: rgba(255, 220, 180, 0.75);
+  font-family: var(--font-serif);
+  font-size: 14px;
+  letter-spacing: 3px;
+  padding: 12px 36px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.4s var(--ease-gentle);
+  backdrop-filter: blur(4px);
+}
+
+.dark-screen__button:hover {
+  border-color: rgba(255, 220, 180, 0.5);
+  color: rgba(255, 240, 210, 0.95);
+  background: rgba(255, 220, 180, 0.1);
+}
+
+@media (max-width: 480px) {
+  .dark-screen__image {
+    background-size: auto 100%;
+    background-position: center 30%;
+  }
+
+  .dark-screen__subtitle {
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+
+  .dark-screen__button {
+    font-size: 13px;
+    padding: 10px 28px;
+  }
+}

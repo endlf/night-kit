@@ -1,0 +1,361 @@
+.campfire-world {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #050a12;
+}
+
+/* Scene background image */
+.scene-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/images/scene.png') center center / cover no-repeat;
+  background-color: #050a12;
+}
+
+/* Subtle vignette at bottom */
+.scene-vignette {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25%;
+  background: linear-gradient(0deg, rgba(5,10,18,0.5) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hidden star */
+.hidden-star {
+  position: absolute;
+  top: 12%;
+  right: 28%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 220, 0.12);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 5;
+  transition: background 0.3s;
+}
+.hidden-star:hover {
+  background: rgba(255, 255, 220, 0.5);
+  box-shadow: 0 0 12px rgba(255, 255, 200, 0.4);
+}
+
+/* Character click zones */
+.char-zone {
+  position: absolute;
+  bottom: 18%;
+  height: 45%;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.4s;
+}
+.char-zone:hover {
+  background: radial-gradient(ellipse, rgba(255, 200, 140, 0.1) 0%, transparent 70%);
+}
+.char-zone--0 { left: 14%; width: 14%; }
+.char-zone--1 { left: 28%; width: 16%; }
+.char-zone--2 { left: 44%; width: 14%; }
+.char-zone--3 { left: 56%; width: 16%; }
+
+/* ===== SIGN PANEL ===== */
+/* Dark panel on the right that covers the image signs */
+.sign-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 28%;
+  min-width: 220px;
+  max-width: 340px;
+  z-index: 15;
+  background: linear-gradient(
+    270deg,
+    rgba(8, 10, 16, 0.9) 0%,
+    rgba(8, 10, 16, 0.8) 50%,
+    rgba(8, 10, 16, 0.45) 80%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 20px 16px 20px 30px;
+  pointer-events: auto;
+}
+
+/* Backdrop — invisible click-to-close area */
+.panel-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 13;
+  background: transparent;
+}
+
+/* Toggle tab on the right edge */
+.panel-tab {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 16;
+  background: rgba(20, 16, 10, 0.85);
+  border: 1px solid rgba(255, 220, 180, 0.25);
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  color: rgba(255, 225, 190, 0.7);
+  font-family: var(--font-serif);
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 14px 6px;
+  cursor: pointer;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transition: all 0.3s ease;
+}
+
+.panel-tab:hover {
+  background: rgba(30, 24, 16, 0.9);
+  color: rgba(255, 240, 210, 0.95);
+  border-color: rgba(255, 220, 180, 0.45);
+}
+
+.panel-tab--open {
+  right: calc(28% - 1px);
+}
+
+@media (min-width: 768px) {
+  .sign-panel {
+    width: 26%;
+    gap: 5px;
+    padding: 24px 20px 24px 40px;
+  }
+  .panel-tab--open {
+    right: calc(26% - 1px);
+  }
+  .panel-tab {
+    font-size: 12px;
+    padding: 16px 7px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .sign-panel {
+    width: 24%;
+    gap: 6px;
+    padding: 28px 28px 28px 50px;
+  }
+  .panel-tab--open {
+    right: calc(24% - 1px);
+  }
+}
+
+/* Individual sign button */
+.sign-zone {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 7px 12px;
+  background: linear-gradient(135deg, #5a3d24 0%, #4a3018 100%);
+  border: 1px solid rgba(160, 120, 70, 0.45);
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 220, 160, 0.08);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.sign-zone:hover {
+  background: linear-gradient(135deg, #7a5530 0%, #6a4525 100%);
+  border-color: rgba(255, 200, 140, 0.5);
+  box-shadow:
+    0 2px 16px rgba(255, 180, 80, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 220, 160, 0.12);
+  transform: translateX(-3px);
+}
+
+.sign-zone:active {
+  transform: translateX(-1px) scale(0.98);
+}
+
+.sign-zone__label {
+  font-family: var(--font-serif);
+  font-size: 12px;
+  color: #f5e6b8;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.sign-zone__dot {
+  width: 6px;
+  height: 6px;
+  background: #c0392b;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 4px rgba(192, 57, 43, 0.5);
+}
+
+@media (min-width: 768px) {
+  .sign-zone {
+    padding: 8px 14px;
+  }
+  .sign-zone__label {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .sign-zone__label {
+    font-size: 13px;
+  }
+}
+
+/* Nothing button */
+.nothing-button {
+  position: absolute;
+  bottom: 4%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
+  z-index: 20;
+  background: rgba(20, 16, 10, 0.75);
+  border: 1px solid rgba(255, 210, 160, 0.25);
+  border-radius: 4px;
+  color: rgba(255, 225, 190, 0.75);
+  font-family: var(--font-serif);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  padding: 10px 24px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.4s ease;
+}
+.nothing-button:hover {
+  border-color: rgba(255, 220, 170, 0.5);
+  color: rgba(255, 240, 210, 0.95);
+  background: rgba(30, 24, 16, 0.85);
+}
+
+/* Centered speech */
+.center-speech {
+  position: fixed;
+  top: 30%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
+  max-width: min(82vw, 420px);
+  background: rgba(15, 12, 8, 0.93);
+  border: 1px solid rgba(255, 210, 160, 0.28);
+  border-radius: 8px;
+  padding: 18px 36px;
+  z-index: 80;
+  text-align: center;
+  pointer-events: none;
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.55);
+}
+.center-speech__name {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 11px;
+  color: rgba(255, 210, 160, 0.55);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.center-speech__text {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: rgba(255, 240, 215, 0.95);
+  line-height: 1.75;
+  letter-spacing: 1px;
+}
+
+@media (min-width: 768px) {
+  .center-speech { padding: 22px 44px; }
+  .center-speech__text { font-size: 17px; }
+  .center-speech__name { font-size: 12px; }
+  .nothing-button { font-size: 13px; padding: 11px 28px; }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 767px) {
+  .scene-bg {
+    background-size: auto 100%;
+    background-position: center top;
+  }
+  .sign-panel {
+    width: 52%;
+    min-width: 0;
+    max-width: none;
+    gap: 3px;
+    padding: 12px 8px 12px 16px;
+    background: linear-gradient(
+      270deg,
+      rgba(8, 10, 16, 0.92) 0%,
+      rgba(8, 10, 16, 0.85) 60%,
+      rgba(8, 10, 16, 0.3) 90%,
+      transparent 100%
+    );
+    justify-content: flex-start;
+    padding-top: 50px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .panel-tab {
+    font-size: 10px;
+    padding: 12px 5px;
+  }
+  .panel-tab--open {
+    right: calc(52% - 1px);
+  }
+  .sign-zone {
+    padding: 5px 8px;
+  }
+  .sign-zone__label {
+    font-size: 9px;
+    letter-spacing: 0.5px;
+  }
+  .char-zone {
+    bottom: 26%;
+    width: 14%;
+    height: 22%;
+  }
+  .char-zone--0 { left: 22%; }
+  .char-zone--1 { left: 36%; }
+  .char-zone--2 { left: 50%; }
+  .char-zone--3 { left: 64%; }
+  .nothing-button {
+    bottom: 3%;
+    font-size: 11px;
+    padding: 9px 16px;
+    letter-spacing: 1px;
+    max-width: 92vw;
+    white-space: normal;
+    text-align: center;
+  }
+  .center-speech {
+    top: 25%;
+    padding: 14px 22px;
+  }
+  .center-speech__text {
+    font-size: 14px;
+  }
+}
